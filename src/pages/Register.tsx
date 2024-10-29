@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { useRegisterUser } from '../hooks/useRegisterData';
+import { Navigate } from 'react-router-dom';
 
 const RegisterPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     username: '',
     email: '',
     password: '',
   });
+
+  const { registerUser, isLoading, error, data } = useRegisterUser();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -17,8 +20,9 @@ const RegisterPage: React.FC = () => {
     });
   };
 
-  const handleSubmit = () => {
-    // Handle registration logic here
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await registerUser(formData); // Calls the hook with form data
   };
 
   return (
@@ -32,28 +36,28 @@ const RegisterPage: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex space-x-4">
             <div className="w-1/2">
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
                 First Name
               </label>
               <input
                 type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
+                id="first_name"
+                name="first_name"
+                value={formData.first_name}
                 onChange={handleChange}
                 className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-yellow-400"
                 required
               />
             </div>
             <div className="w-1/2">
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">
                 Last Name
               </label>
               <input
                 type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
+                id="last_name"
+                name="last_name"
+                value={formData.last_name}
                 onChange={handleChange}
                 className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-yellow-400"
                 required
@@ -107,18 +111,14 @@ const RegisterPage: React.FC = () => {
           <button
             type="submit"
             className="w-full px-4 py-2 font-semibold text-white bg-yellow-500 rounded-md hover:bg-yellow-600"
+            disabled={isLoading} // Disable button while loading
           >
-            Register
+            {isLoading ? 'Registering...' : 'Register'}
           </button>
+          {error && <p className="text-red-500 text-center">{error}</p>}
+          {data && <p className="text-green-500 text-center">Registration successful!</p>}
+          {data && <Navigate to="/login" replace />}
         </form>
-        <div className="mt-4 text-center">
-          <p className="text-sm text-gray-600">
-            Already have an account?{' '}
-            {/* <Link to="/login" className="font-semibold text-yellow-500 hover:underline">
-              Login
-            </Link> */}
-          </p>
-        </div>
       </div>
     </div>
   );

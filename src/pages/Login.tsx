@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
+import { useLoginUser } from '../hooks/useLoginData';
+import { Navigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  const { loginUser, isLoading, error } = useLoginUser();
 
-  const handleSubmit= () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     
-  }
+    // Call the loginUser function from the hook
+    await loginUser({ username, password });
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-yellow-300 to-yellow-600">
@@ -18,7 +24,11 @@ const LoginPage: React.FC = () => {
       </div>
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-900">Login</h2>
-        {/* {error && <p className="text-red-500 text-center">{error}</p>} */}
+
+        {/* Display error message if there is an error */}
+        {error && <p className="text-red-500 text-center">{error}</p>}
+
+        {/* Display loading state on the button */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-700">
@@ -61,9 +71,11 @@ const LoginPage: React.FC = () => {
           <button
             type="submit"
             className="w-full px-4 py-2 font-semibold text-white bg-yellow-500 rounded-md hover:bg-yellow-600"
+            disabled={isLoading} // Disable button while loading
           >
-            Login
+            {isLoading ? 'Logging in...' : 'Login'}
           </button>
+          {error && <p className="text-red-600 mt-2">{error}</p>}
         </form>
       </div>
     </div>

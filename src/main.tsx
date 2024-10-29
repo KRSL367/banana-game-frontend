@@ -1,13 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import LoginPage from './pages/Login'
-import App from './App'
-import RegisterPage from './pages/Register'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import AppRouter from "./routes.tsx";
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    {/* <LoginPage /> */}
-    <RegisterPage />
-  </StrictMode>,
-)
+// Create a client instance for React Query
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    {/* Provide the QueryClient to your app */}
+    <QueryClientProvider client={queryClient}>
+      <AppRouter />
+    </QueryClientProvider>
+  </React.StrictMode>
+);
