@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLoginUser } from '../hooks/useLoginData';
-import { Link, Navigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
