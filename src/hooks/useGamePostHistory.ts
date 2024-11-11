@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ApiResponse, usePostData } from "./usePostData";
 
 export interface GamePostHistoryData {
-  Userid?: number;
+  user?: number;
   game_won?: boolean;
   point_earned?: number;
 }
