@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLoginUser } from '../hooks/useLoginData';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -75,6 +75,16 @@ const LoginPage: React.FC = () => {
           >
             {isLoading ? 'Logging in...' : 'Login'}
           </button>
+
+           {/* Register link below the login button */}
+           <div className="text-center mt-4">
+            <p className="text-sm text-gray-600">
+              Don't have an account?{' '}
+              <Link to="/register" className="text-yellow-600 hover:text-yellow-800">
+                Register
+              </Link>
+            </p>
+          </div>
           {error && <p className="text-red-600 mt-2">{error}</p>}
         </form>
       </div>

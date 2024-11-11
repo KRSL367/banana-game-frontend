@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRegisterUser } from '../hooks/useRegisterData';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const RegisterPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -115,6 +115,15 @@ const RegisterPage: React.FC = () => {
           >
             {isLoading ? 'Registering...' : 'Register'}
           </button>
+          {/* Login link below the register button */}
+          <div className="text-center mt-4">
+            <p className="text-sm text-gray-600">
+              Already have an account? {" "}
+              <Link to="/login" className="text-yellow-600 hover:text-yellow-800">
+                Login
+              </Link>
+            </p>
+          </div>
           {error && <p className="text-red-500 text-center">{error}</p>}
           {data && <p className="text-green-500 text-center">Registration successful!</p>}
           {data && <Navigate to="/login" replace />}
