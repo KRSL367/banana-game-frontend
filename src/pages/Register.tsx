@@ -43,6 +43,7 @@ const RegisterPage: React.FC = () => {
                 type="text"
                 id="first_name"
                 name="first_name"
+                placeholder='Enter your first name'
                 value={formData.first_name}
                 onChange={handleChange}
                 className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-yellow-400"
@@ -57,6 +58,7 @@ const RegisterPage: React.FC = () => {
                 type="text"
                 id="last_name"
                 name="last_name"
+                placeholder='Enter your last name'
                 value={formData.last_name}
                 onChange={handleChange}
                 className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-yellow-400"
@@ -73,6 +75,7 @@ const RegisterPage: React.FC = () => {
                 type="text"
                 id="username"
                 name="username"
+                placeholder='Enter your username'
                 value={formData.username}
                 onChange={handleChange}
                 className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-yellow-400"
@@ -87,6 +90,7 @@ const RegisterPage: React.FC = () => {
                 type="email"
                 id="email"
                 name="email"
+                placeholder='Enter your email'
                 value={formData.email}
                 onChange={handleChange}
                 className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-yellow-400"
@@ -102,6 +106,7 @@ const RegisterPage: React.FC = () => {
               type="password"
               id="password"
               name="password"
+              placeholder='Enter your password'
               value={formData.password}
               onChange={handleChange}
               className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-yellow-400"

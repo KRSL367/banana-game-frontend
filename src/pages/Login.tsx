@@ -37,6 +37,7 @@ const LoginPage: React.FC = () => {
             <input
               type="text"
               id="username"
+              placeholder='Enter your username'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-yellow-400"
@@ -50,6 +51,7 @@ const LoginPage: React.FC = () => {
             <input
               type={showPassword ? 'text' : 'password'}
               id="password"
+              placeholder='Enter your password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-yellow-400"
