@@ -9,7 +9,7 @@ import { useAuth } from "../components/authcontext";
 const HomePage: React.FC = () => {
   const { data: gameData, isLoading, error, refetch } = useStartGame();
   const { postHistory } = useGamePostHistory();
-  const { isAuthenticated, logout } = useAuth(); // Accessing the logout function
+  const { isAuthenticated, logout, user } = useAuth(); // Accessing the logout function
 
   const [answer, setAnswer] = useState<string>("");
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
   const [resultColor, setResultColor] = useState<string>("");
   const [lives, setLives] = useState<number>(3);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [attempts, setAttempts] = useState<GamePostHistoryData[]>([]); // Array to store each attempt
+  const [attempts, setAttempts] = useState<GamePostHistoryData[]>([]);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
@@ -92,7 +92,7 @@ const HomePage: React.FC = () => {
   }, [refetch]);
 
   const handleLogout = () => {
-    logout(); // Trigger logout from the context
+    logout();
   };
 
   if (isLoading) {
@@ -123,9 +123,7 @@ const HomePage: React.FC = () => {
         <h1 className="text-4xl font-extrabold text-white">
           Welcome to Banana Game
         </h1>
-        <h3 className="mt-2 text-lg text-gray-100">
-          Guess the correct number
-        </h3>
+        <h3 className="mt-2 text-lg text-gray-100">Guess the correct number</h3>
       </div>
       <div className="flex items-center justify-center">
         <div className="flex-1 max-w-md w-full p-6 bg-white rounded-md shadow-md mr-6">
@@ -191,7 +189,7 @@ const HomePage: React.FC = () => {
 
         <div className="w-64 h-[425px] p-4 bg-gray-100 rounded-md overflow-y-auto shadow-lg">
           <h2 className="text-lg font-semibold text-gray-700 mb-2">
-            Game History
+            Game Logs
           </h2>
           {attempts.length > 0 ? (
             <ul className="space-y-2">
@@ -231,12 +229,15 @@ const HomePage: React.FC = () => {
 
       {/* Logout Button */}
       {isAuthenticated && (
-        <button
-          onClick={handleLogout}
-          className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
-        >
-          Log out
-        </button>
+        <div className="absolute top-4 right-4 flex items-center space-x-2">
+          <span className="text-white font-semibold">{user?.username}</span>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+          >
+            Log out
+          </button>
+        </div>
       )}
     </div>
   );

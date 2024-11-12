@@ -1,7 +1,6 @@
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
-import StartGame from "./pages/StartGame";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import { AuthProvider } from "./components/authcontext";
@@ -13,7 +12,6 @@ const publicRoutes = [
 
 const authenticatedRoutes = [
   { path: "/", element: <HomePage /> },
-  { path: "start-game/", element: <StartGame /> },
 ];
 
 const router = createBrowserRouter([

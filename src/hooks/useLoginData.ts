@@ -30,9 +30,9 @@ export const useLoginUser = () => {
       user
     );
 
-    if (response?.access) {
-      const { access} = response;
-      login(access);
+    if (response?.access && response?.user) {
+      const { access, user} = response;
+      login(access, user);
       navigate("/");
     }
 
