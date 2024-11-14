@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRegisterUser } from '../hooks/useRegisterData';
 import { Link, Navigate } from 'react-router-dom';
 
+// RegisterPage component handles user registration
 const RegisterPage: React.FC = () => {
   const [formData, setFormData] = useState({
     first_name: '',
@@ -11,8 +12,9 @@ const RegisterPage: React.FC = () => {
     password: '',
   });
 
-  const { registerUser, isLoading, error, data } = useRegisterUser();
+  const { registerUser, isLoading, error, data } = useRegisterUser(); // Custom hook for registration
 
+  // Handles form data changes for each input field
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -20,6 +22,7 @@ const RegisterPage: React.FC = () => {
     });
   };
 
+  // Handles form submission and calls the registerUser function from the hook
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await registerUser(formData); // Calls the hook with form data
@@ -34,6 +37,7 @@ const RegisterPage: React.FC = () => {
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md mb-10">
         <h2 className="text-2xl font-bold text-center text-gray-900">Register</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* First Name and Last Name input fields */}
           <div className="flex space-x-4">
             <div className="w-1/2">
               <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
@@ -66,6 +70,8 @@ const RegisterPage: React.FC = () => {
               />
             </div>
           </div>
+
+          {/* Username and Email input fields */}
           <div className="flex space-x-4">
             <div className="w-1/2">
               <label htmlFor="username" className="block text-sm font-medium text-gray-700">
@@ -98,6 +104,8 @@ const RegisterPage: React.FC = () => {
               />
             </div>
           </div>
+
+          {/* Password input field */}
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
@@ -113,6 +121,8 @@ const RegisterPage: React.FC = () => {
               required
             />
           </div>
+
+          {/* Submit button to register the user */}
           <button
             type="submit"
             className="w-full px-4 py-2 font-semibold text-white bg-yellow-500 rounded-md hover:bg-yellow-600"
@@ -120,17 +130,22 @@ const RegisterPage: React.FC = () => {
           >
             {isLoading ? 'Registering...' : 'Register'}
           </button>
+
           {/* Login link below the register button */}
           <div className="text-center mt-4">
             <p className="text-sm text-gray-600">
-              Already have an account? {" "}
+              Already have an account?{" "}
               <Link to="/login" className="text-yellow-600 hover:text-yellow-800">
                 Login
               </Link>
             </p>
           </div>
+
+          {/* Display error or success messages */}
           {error && <p className="text-red-500 text-center">{error}</p>}
           {data && <p className="text-green-500 text-center">Registration successful!</p>}
+
+          {/* Redirect to login page upon successful registration */}
           {data && <Navigate to="/login" replace />}
         </form>
       </div>

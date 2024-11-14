@@ -4,13 +4,15 @@ import {
   GamePostHistoryData,
   useGamePostHistory,
 } from "../hooks/useGamePostHistory";
-import { useAuth } from "../components/authcontext";
+import { useAuth } from "../components/authContext";
 
+// HomePage component managing game data, user authentication, and game functionalities
 const HomePage: React.FC = () => {
   const { data: gameData, isLoading, error, refetch } = useStartGame();
   const { postHistory } = useGamePostHistory();
-  const { isAuthenticated, logout, user } = useAuth(); // Accessing the logout function
+  const { isAuthenticated, logout, user } = useAuth();
 
+  // State variables for managing game input, feedback, lives, attempts, and modal visibility
   const [answer, setAnswer] = useState<string>("");
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [resultMessage, setResultMessage] = useState<string>("");
@@ -19,6 +21,7 @@ const HomePage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [attempts, setAttempts] = useState<GamePostHistoryData[]>([]);
 
+  // Handles answer submission, checking correctness, updating lives, and posting history
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
@@ -64,37 +67,41 @@ const HomePage: React.FC = () => {
           : updatedAttempts;
       });
 
-      setAnswer(""); // Clear the input field after submitting
+      setAnswer("");
       setSubmitted(true);
     },
     [answer, gameData?.solution, lives, refetch, postHistory]
   );
 
+  // Resets game state, clears attempts, and fetches new game data on skip
   const handleSkip = useCallback(() => {
     setAnswer("");
     setResultMessage("");
     setResultColor("");
     setSubmitted(false);
     setLives(3);
-    setAttempts([]); // Reset attempts history
+    setAttempts([]);
     refetch();
   }, [refetch]);
 
+  // Resets game state for a new game session and closes modal on retry
   const handleRetry = useCallback(() => {
     setAnswer("");
     setResultMessage("");
     setResultColor("");
     setSubmitted(false);
     setLives(3);
-    setAttempts([]); // Reset attempts history
+    setAttempts([]);
     refetch();
     setIsModalOpen(false);
   }, [refetch]);
 
+  // Logs the user out of the game session
   const handleLogout = () => {
     logout();
   };
 
+  // Loading and error handling views
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -117,6 +124,7 @@ const HomePage: React.FC = () => {
     );
   }
 
+  // Main game UI with question display, answer input, feedback, and retry options
   return (
     <div className="items-center justify-center h-screen bg-gradient-to-br from-yellow-300 to-yellow-600 p-6">
       <div className="mb-8 text-center">
@@ -187,6 +195,7 @@ const HomePage: React.FC = () => {
           )}
         </div>
 
+        {/* Displays the user's recent game attempts */}
         <div className="w-64 h-[425px] p-4 bg-gray-100 rounded-md overflow-y-auto shadow-lg">
           <h2 className="text-lg font-semibold text-gray-700 mb-2">
             Game Logs
@@ -205,9 +214,8 @@ const HomePage: React.FC = () => {
           )}
         </div>
       </div>
-      {/* Game Section */}
 
-      {/* Custom Modal */}
+      {/* Modal shown upon correct answer */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full text-center">

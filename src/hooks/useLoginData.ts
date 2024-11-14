@@ -1,5 +1,5 @@
 import { useState } from "react";  // Importing dependencies and hooks
-import { useAuth } from "../components/authcontext";
+import { useAuth } from "../components/authContext";
 import { ApiResponse, usePostData } from "./usePostData";
 import { useNavigate } from "react-router-dom";
 

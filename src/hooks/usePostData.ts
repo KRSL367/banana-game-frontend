@@ -1,6 +1,6 @@
 import axios from "axios";
 import apiClient from "../services/ApiClient";
-import { LoginUserData } from "../components/authcontext";
+import { LoginUserData } from "../components/authContext";
 
 // Defines the structure for the API response, including optional fields for login-related data
 export interface ApiResponse<T> {

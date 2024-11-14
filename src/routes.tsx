@@ -3,7 +3,7 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import { AuthProvider } from "./components/authcontext";
+import { AuthProvider } from "./components/authContext";
 
 const publicRoutes = [
   { path: "/login", element: <LoginPage /> },

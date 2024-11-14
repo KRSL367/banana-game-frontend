@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useLoginUser } from '../hooks/useLoginData';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
+// LoginPage component handles the user login functionality
 const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState(''); 
+  const [password, setPassword] = useState(''); 
+  const [showPassword, setShowPassword] = useState(false); 
 
   const { loginUser, isLoading, error } = useLoginUser();
 
+  // Handles form submission and calls the loginUser function from the hook
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Call the loginUser function from the hook
     await loginUser({ username, password });
   };
 
@@ -25,11 +25,11 @@ const LoginPage: React.FC = () => {
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-900">Login</h2>
 
-        {/* Display error message if there is an error */}
+        {/* Displays error message if login fails */}
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {/* Display loading state on the button */}
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Username input field */}
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-700">
               Username
@@ -44,6 +44,8 @@ const LoginPage: React.FC = () => {
               required
             />
           </div>
+
+          {/* Password input field with toggle to show/hide password */}
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
@@ -63,13 +65,15 @@ const LoginPage: React.FC = () => {
                 id="showPassword"
                 checked={showPassword}
                 onChange={() => setShowPassword(!showPassword)}
-                className="mr-2 "
+                className="mr-2"
               />
               <label htmlFor="showPassword" className="text-sm text-gray-600">
                 Show Password
               </label>
             </div>
           </div>
+
+          {/* Submit button to log the user in */}
           <button
             type="submit"
             className="w-full px-4 py-2 font-semibold text-white bg-yellow-500 rounded-md hover:bg-yellow-600"
@@ -78,8 +82,8 @@ const LoginPage: React.FC = () => {
             {isLoading ? 'Logging in...' : 'Login'}
           </button>
 
-           {/* Register link below the login button */}
-           <div className="text-center mt-4">
+          {/* Link to redirect user to the register page if they don't have an account */}
+          <div className="text-center mt-4">
             <p className="text-sm text-gray-600">
               Don't have an account?{' '}
               <Link to="/register" className="text-yellow-600 hover:text-yellow-800">
